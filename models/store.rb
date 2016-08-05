@@ -25,18 +25,32 @@ class Store
     return result 
   end
 
-  # def self.all()
-  #   sql = "SELECT * FROM artists;"
-  #   artists = SqlRunner.run( sql )
-  #   result = artists.map{ |artist| Artist.new(artist) }
-  #   return result
-  # end
+  def self.find(id)
+    sql = "SELECT * FROM stores WHERE id = #{id};"
+    store = SqlRunner.run( sql ).first
+    return Store.new(store)
+  end
 
-  # def self.find(id)
-  #   sql = "SELECT * FROM artists WHERE id = #{id};"
-  #   artist = SqlRunner.run( sql ).first
-  #   return Artist.new(artist)
-  # end
+  def update()
+     sql = "UPDATE stores SET (
+       name = '#{@name}',
+       address = '#{@address}',
+       stock_type = '#{@stock_type}', 
+       WHERE id = #{@id};)
+       "
+    result = SqlRunner.run( sql )
+   end
+
+    def delete()
+    sql = "DELETE FROM stores WHERE id = #{id};"
+    deleted = SqlRunner.run( sql )
+  end
   
+  def self.all()
+    sql = "SELECT * FROM stores;"
+    stores = SqlRunner.run( sql )
+    result = stores.map{ |artist| Store.new(store) }
+    return result
+  end
 
 end
